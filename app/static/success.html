@@ -3,27 +3,40 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body, .wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+  </style>
   <title>Login successful</title>
 </head>
 <body>
-  <h1>Success</h1>
-  <p>You are authenticated...</p>
+  <div class="wrapper">
+    <h1>Success</h1>
+    <p>You have been authenticated with GitHub</p>
+    <div class="mustbeabetterway" style="display:none">
+      <span id="user">
+      {{user}}
+      </span>
+      <span id="repos">
+      {{repos}}
+      </span>
+    </div>
+  </div>
 </body>
 <script>
   document.body.onload = function() {
     window.opener.postMessage(
       {
-        payload: "hi",
+        user: document.querySelector("#user").innerHTML,
+        repos: document.querySelector("#repos").innerHTML,
         status: 'success'
       },
       window.opener.location
     );
-    /*
-    window.opener.postMessage(
-      { error: 'Login failed' },
-      window.opener.location
-    );
-    */
   };
 </script>
 </html>

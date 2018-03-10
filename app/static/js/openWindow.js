@@ -33,12 +33,12 @@ const popup = (myUrl) => {
         reject('Not allowed');
       }
 
-      if (msg.data.payload) {
+      if (msg.data) {
         try {
-          resolve(JSON.parse(msg.data.payload));
+          resolve(JSON.parse(msg.data));
         }
         catch(e) {
-          resolve(msg.data.payload);
+          resolve(msg.data);
         }
         finally {
           authWindow.close();

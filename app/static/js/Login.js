@@ -11,9 +11,10 @@ export default class Login extends React.Component {
         return (
             <div className="wrapper">
                 <div className="welcomeTitle">
-                    <h1> Github Repo Helper </h1>
+                    <h1>Github Repo Helper</h1>
                 </div>
                 <div className="loginBox">
+                    <span className="slogan"> Decode the cryptic dev talk! </span>
                     <button className="githubOAuth" onClick={() => this.props.loginClick()}>Login with Github</button>
                 </div>
             </div>

@@ -6,7 +6,6 @@ import loginTab from './openWindow';
 var $ = require('jquery');
 
 export default class App extends React.Component {
-
     constructor(props) {
         super(props);
         //todo = actually get state from flask
@@ -59,30 +58,33 @@ export default class App extends React.Component {
                   logged_in : "true",
                   user : userData,
                   repos : reposData
-              })
-            })
+              });
+            });
         });
     }
 
     //todo
-    handleLogOut(e, {name}) {
+    handleLogOut() {
         $.get("/logout", (data) => {
-            console.warn(data);
-        } )
+          console.warn(data)
+        }).then((data) => {
+          console.warn(data);
+          this.setState({
+            logged_in : "false",
+            user : null,
+            repos: null
+          })
+        });
     }
 
     render () {
         if (this.state.logged_in === "false") {
           return (
-              <div>
-                 {this.renderLogin()}
-              </div>
+              this.renderLogin()
           );
         } else {
           return (
-            <div>
-              {this.renderHomePage()}
-            </div>
+              this.renderHomePage()
           )
         }
     }

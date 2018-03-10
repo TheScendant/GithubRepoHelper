@@ -5,10 +5,17 @@ var $ = require('jquery');
 export default class HomePage extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            activeRepo : null
+        }
+    }
+
+    changeRepo() {
+        console.warn('x');
     }
 
     renderRepo(i,repo) {
-        return <span key = {i} >{repo["full_name"]}</span>;
+        return <span className="repoName" key = {i} onClick={() => this.changeRepo()}> {repo["full_name"]} </span>
     }
 
     render () {
@@ -19,8 +26,17 @@ export default class HomePage extends React.Component {
             keyNumber++;
         }
         return (
-            <div>
-                {repos}
+            <div className="page">
+                <div className="titleBar"><h1>Github Repo Helper</h1></div>
+                    <div className="pageContents">
+                        <div className="sideBar">
+                            {repos}
+                            <span className="logOut" onClick={() => this.props.logoutClick()} > Logout</span>
+                        </div>
+                        <div className="mainPage">
+                            {this.state.activeRepo}
+                        </div>
+                </div>
             </div>
             )
     }

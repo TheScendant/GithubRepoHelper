@@ -1,6 +1,10 @@
 import React from "react";
 import css from '../css/index.css'
-
+import * as userActions from '../redux/userActions';
+import { STATE_KEY as USER_STATE_KEY } from '../redux/userReducer';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import loginTab from './openWindow';
 var $ = require('jquery');
 
 export default class Login extends React.Component {
@@ -22,6 +26,23 @@ export default class Login extends React.Component {
             this.personaliseGreeting(data);
         });
     }
+
+    /*handleLogIn(e, {name}) {*/
+    handleLogIn() {
+        const msg = loginTab("/auth/login");
+/*        msg.then(user => {
+            this.props.userActions.injectUser(user);
+        });*/
+    }
+    handleLogOut(e, {name}) {
+        this.props.userActions.logoutUser();
+    }
+
+    helloworld() {
+        alert("helloworld");
+    }
+
+
 
 /*    render () {
         return (
@@ -49,7 +70,7 @@ export default class Login extends React.Component {
                 <h1> Github Repo Helper </h1>
             </div>
             <div className="loginBox">
-                <button className="githubOAuth">Login with Github</button>
+                <button className="githubOAuth" onClick={this.handleLogIn.bind(this)}>Login with Github</button>
             </div>
             </div>
         );

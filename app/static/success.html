@@ -17,22 +17,12 @@
   <div class="wrapper">
     <h1>Success</h1>
     <p>You have been authenticated with GitHub</p>
-    <div class="mustbeabetterway" style="display:none">
-      <span id="user">
-      {{user}}
-      </span>
-      <span id="repos">
-      {{repos}}
-      </span>
-    </div>
   </div>
 </body>
 <script>
   document.body.onload = function() {
     window.opener.postMessage(
       {
-        user: document.querySelector("#user").innerHTML,
-        repos: document.querySelector("#repos").innerHTML,
         status: 'success'
       },
       window.opener.location

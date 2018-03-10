@@ -84,7 +84,7 @@ def login():
     if session.get('user_id', None) is None:
         return github.authorize()
     else:
-        return redirect(url_for("user"))
+        return render_template("success.html")
 
 
 @app.route('/logout')
@@ -96,8 +96,12 @@ def logout():
 @app.route('/user')
 def user():
     user = github.get('user')
+    return json.dumps(user)
+
+@app.route('/repos')
+def repos():
     repos = github.get('user/repos')
-    return render_template("success.html", user=user, repos = repos)
+    return json.dumps(repos)
 
 # @app.route('/info')
 # def getInfo():

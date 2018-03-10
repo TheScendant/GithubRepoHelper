@@ -1,5 +1,6 @@
 import React from "react";
 import Hello from "./Hello";
+import Login from "./Login";
 import { PageHeader } from "react-bootstrap";
 /*
 require('../css/fullstack.css');*/
@@ -17,7 +18,8 @@ export default class App extends React.Component {
             <PageHeader>
                 <div className='header-contents'>
                 {this.addHeaderImg()}
-                <Hello name='Hayden' />
+                {/*<Hello name='Hayden' />*/}
+                <Login />
                 </div>
             </PageHeader>
         );

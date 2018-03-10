@@ -29,10 +29,11 @@ export default class Login extends React.Component {
 
     /*handleLogIn(e, {name}) {*/
     handleLogIn() {
-        const msg = loginTab("/auth/login");
-/*        msg.then(user => {
-            this.props.userActions.injectUser(user);
-        });*/
+        const msg = loginTab("/login");
+        msg.then(user => {
+            // this.props.userActions.injectUser(user);
+            console.warn(user)
+        });
     }
     handleLogOut(e, {name}) {
         this.props.userActions.logoutUser();

@@ -1,0 +1,5 @@
+flask
+github-flask
+requests
+SQLAlchemy
+flask_sqlalchemy

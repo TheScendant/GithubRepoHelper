@@ -19,13 +19,18 @@ export default class HomePage extends React.Component {
     }
 
     renderRepoListElement(i,repo) {
-        return <span className="repoName" index={i} key = {i} onClick={(e) => this.changeRepo(e)}> {repo["name"]} </span>
+        return (
+            <span className="repoName" index={i} key = {i} onClick={(e) => this.changeRepo(e)}>
+                {repo["name"]}
+            </span>
+            );
     }
 
     getRepoDetails() {
-        let activeRepo = this.props.repos[this.state.activeRepo];
-        let lans = activeRepo["languages"];
-        lans = Object.keys(lans).sort((a,b) => lans[a] < lans[b]);
+        let repo = this.props.repos[this.state.activeRepo];
+        let lans = Object.keys(repo["languages"]).sort(
+                    (a,b) => repo["languages"][a] < repo["languages"][b]
+                );
         let languages = "";
         lans.forEach((item,index) => {
             languages += item;
@@ -33,27 +38,38 @@ export default class HomePage extends React.Component {
                 languages +=", ";
             }
         });
+
+        let contributors = "";
+        let cons = repo["contributors"].map( (x) => x.login);
+        cons.forEach((item,index) => {
+            contributors+=item;
+            if (index !==cons.length-1) {
+                contributors+=", ";
+            }
+        })
+
+
         return (
             <div className="repoPage">
-                <h2>{activeRepo["name"]}</h2>
-                <a href={activeRepo["clone_url"]}>View Repo</a>
+                <h2>{repo["name"]}</h2>
+                <a href={repo["clone_url"]}>View Repo</a>
                 <div className="repoContents">
                     <table className="repoDataTable"><tbody>
                         <tr>
                             <td>Full Name</td>
-                            <td>{activeRepo["full_name"]}</td>
+                            <td>{repo["full_name"]}</td>
                         </tr>
                         <tr>
                             <td>Last Updated</td>
-                            <td>{activeRepo["updated_at"]}</td>
+                            <td>{repo["updated_at"]}</td>
                         </tr>
                         <tr>
                             <td>Langauges</td>
                             <td>{languages}</td>
                         </tr>
                         <tr>
-                            <td></td>
-                            <td></td>
+                            <td>Contributors</td>
+                            <td>{contributors}</td>
                         </tr>
                     </tbody></table>
                 </div>
@@ -80,7 +96,7 @@ export default class HomePage extends React.Component {
                     <div className="pageContents">
                         <div className="sideBar">
                             <div className="repoList">
-                                <span><h3>Repositories</h3></span>
+                                <span><h2>Repositories</h2></span>
                                 {repos}
                             </div>
                             <span className="logOut" onClick={() => this.props.logoutClick()} >Logout</span>

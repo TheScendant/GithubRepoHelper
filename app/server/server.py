@@ -100,9 +100,8 @@ def user():
 def repos():
     repos = github.get('user/repos')
     for repo in repos:
-        if "languages_url" in repo:
-            languages = github.get(repo["languages_url"])
-            repo["languages"] = languages
+        repo["languages"] = github.get(repo["languages_url"])
+        repo["contributors"] = github.get(repo["contributors_url"])
     return json.dumps(repos)
 
 

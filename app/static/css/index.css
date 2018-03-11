@@ -88,7 +88,7 @@ button:hover {
     min-width: 250px;
     padding-top:50px;
 }
-h2 {
+h2, h1 {
     font-weight:750;
 }
 

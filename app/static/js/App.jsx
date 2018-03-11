@@ -54,7 +54,7 @@ export default class App extends React.Component {
             $.when(user,repos).done((user,repos) => {
               let userData = JSON.parse(user[0]);
               let reposData = JSON.parse(repos[0]);
-              this.setState( {
+              this.setState({
                   logged_in : "true",
                   user : userData,
                   repos : reposData
@@ -63,17 +63,19 @@ export default class App extends React.Component {
         });
     }
 
-    //todo
     handleLogOut() {
         $.get("/logout", (data) => {
-          console.warn(data)
         }).then((data) => {
-          console.warn(data);
-          this.setState({
-            logged_in : "false",
-            user : null,
-            repos: null
-          })
+          if (data === "loggedout") {
+            this.setState({
+              logged_in : "false",
+              user : null,
+              repos: null
+            })  ;
+          } else {
+            console.error("not logged out but should be");
+          }
+
         });
     }
 

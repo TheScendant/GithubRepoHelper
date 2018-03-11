@@ -8,14 +8,18 @@ export default class HomePage extends React.Component {
         this.state = {
             activeRepo : null
         }
+        // this.changeRepo = this.changeRepo.bind(this);
     }
 
-    changeRepo() {
-        console.warn('x');
+    changeRepo(e) {
+        let index  = e.target.getAttribute("index");
+        this.setState({
+            activeRepo : index
+        })
     }
 
     renderRepo(i,repo) {
-        return <span className="repoName" key = {i} onClick={() => this.changeRepo()}> {repo["full_name"]} </span>
+        return <span className="repoName" index={i} key = {i} onClick={(e) => this.changeRepo(e)}> {repo["full_name"]} </span>
     }
 
     render () {
@@ -38,6 +42,6 @@ export default class HomePage extends React.Component {
                         </div>
                 </div>
             </div>
-            )
+        )
     }
 }

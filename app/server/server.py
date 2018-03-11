@@ -32,8 +32,6 @@ def before_request():
     g.user = None
     if 'user_id' in session:
         g.user = User.query.get(session['user_id'])
-    else:
-        print "no userid in session"
 
 
 @app.after_request
@@ -81,7 +79,7 @@ def login():
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
-    return "i am returning from logout"
+    return "loggedout"
 
 @app.route('/user')
 def user():

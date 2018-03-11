@@ -1,7 +1,7 @@
 {
-  "name": "FullStackTemplate",
+  "name": "GithubRepoHelper",
   "version": "1.0.0",
-  "description": "A Template for creating a Full Stack Web Application using Python, NPM, Webpack and React",
+  "description": "Friendly UI for github repo data",
   "main": "index.js",
   "scripts": {
     "build": "webpack -p --progress --config webpack.config.js",
@@ -41,8 +41,6 @@
     ]
   },
   "dependencies": {
-    "babel-loader": "^7.1.4",
-    "react-redux": "^5.0.7",
-    "redux": "^3.7.2"
+    "babel-loader": "^7.1.4"
   }
 }

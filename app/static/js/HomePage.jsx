@@ -48,6 +48,8 @@ export default class HomePage extends React.Component {
             }
         })
 
+        let tagList = "";
+        let tags = repo["tags"];
 
         return (
             <div className="repoPage">
@@ -70,6 +72,10 @@ export default class HomePage extends React.Component {
                         <tr>
                             <td>Contributors</td>
                             <td>{contributors}</td>
+                        </tr>
+                        <tr>
+                            <td>Tags</td>
+                            <td>{tags}</td>
                         </tr>
                     </tbody></table>
                 </div>

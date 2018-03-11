@@ -102,6 +102,7 @@ def repos():
     for repo in repos:
         repo["languages"] = github.get(repo["languages_url"])
         repo["contributors"] = github.get(repo["contributors_url"])
+        repo["tags"] = github.get(repo["tags_url"])
     return json.dumps(repos)
 
 

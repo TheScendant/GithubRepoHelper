@@ -8,9 +8,12 @@ export default class HomePage extends React.Component {
         this.state = {
             activeRepo : null
         }
-        // this.changeRepo = this.changeRepo.bind(this);
     }
 
+    /**
+     * Sets the current repo forcing rerender of mainPage
+     * @param {Event} e - the click event
+     */
     changeRepo(e) {
         let index  = e.target.getAttribute("index");
         this.setState({
@@ -18,6 +21,13 @@ export default class HomePage extends React.Component {
         })
     }
 
+    /**
+     * Returns the repolist for the sidebar. Sets up onclick
+     * handler for each item.
+     * @param {Number} i - the index of the repo in the list
+     * @param {JSON} repo - the repo in for this list element
+     * @return {HTMLElement} span to be placed in list
+     */
     renderRepoListElement(i,repo) {
         return (
             <span className="repoName" index={i} key = {i} onClick={(e) => this.changeRepo(e)}>
@@ -26,6 +36,11 @@ export default class HomePage extends React.Component {
             );
     }
 
+    /**
+     * Returns the main page contents to be presented on the main page
+     * Prettifies the languages, contributors and tags
+     * @return {HTMLElement} main page contents
+     */
     getRepoDetails() {
         let repo = this.props.repos[this.state.activeRepo];
         let lans = Object.keys(repo["languages"]).sort(

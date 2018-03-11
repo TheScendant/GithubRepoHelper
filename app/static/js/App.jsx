@@ -30,7 +30,8 @@ export default class App extends React.Component {
     }
 
     /**
-     * Renders a login component. Passes login function
+     * Renders a Login component. Passes login function
+     * @return {Login}
      */
     renderLogin() {
       let props = {
@@ -40,7 +41,9 @@ export default class App extends React.Component {
     }
 
     /**
-     * Renders a login component. Passes logout function, user and repo data
+     * Renders the HomePage component.
+     * Passes logout function, user and repo data
+     * @return {HomePage}
      */
     renderHomePage() {
       let props = {
@@ -52,7 +55,9 @@ export default class App extends React.Component {
     }
 
     /**
-     * Open new window for GitHub OAuth
+     * Open new window for GitHub OAuth. After user is
+     * logged in, window closes and we request user and
+     * repo data. Updates the state with new data
      */
     handleLogIn() {
         const msg = loginTab("/login");
@@ -76,6 +81,9 @@ export default class App extends React.Component {
         });
     }
 
+    /**
+     * Called when user clicks logout.
+     */
     handleLogOut() {
         $.get("/logout", (data) => {
         }).then((data) => {

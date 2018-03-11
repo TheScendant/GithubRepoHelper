@@ -1,8 +1,6 @@
 from flask import Flask, render_template, redirect, request, url_for, render_template_string, g, session
 from flask_github import GitHub
-import requests, json
-from urlparse import parse_qs
-from urllib import urlencode
+import json
 from flask_sqlalchemy import SQLAlchemy
 
 DATABASE_URI = 'sqlite:////tmp/github-flask.db'
@@ -103,6 +101,9 @@ def repos():
         repo["languages"] = github.get(repo["languages_url"])
         repo["contributors"] = github.get(repo["contributors_url"])
         repo["tags"] = github.get(repo["tags_url"])
+        #topics is in beta so need custom 'Accept' header
+        headers = {"Accept": "application/vnd.github.mercy-preview+json"}
+        repo["topics"] = github.get("/repos/"+repo["owner"]["login"]+"/"+repo["name"]+"/topics",headers=headers)
     return json.dumps(repos)
 
 

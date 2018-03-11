@@ -89,6 +89,10 @@ def user():
 @app.route('/repos')
 def repos():
     repos = github.get('user/repos')
+    for repo in repos:
+        if "languages_url" in repo:
+            languages = github.get(repo["languages_url"])
+            repo["languages"] = languages
     return json.dumps(repos)
 
 

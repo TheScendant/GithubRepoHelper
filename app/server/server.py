@@ -2,11 +2,12 @@ from flask import Flask, render_template, redirect, request, url_for, render_tem
 from flask_github import GitHub
 import json
 from flask_sqlalchemy import SQLAlchemy
+import config
 
 DATABASE_URI = 'sqlite:////tmp/github-flask.db'
 SECRET_KEY = 'development key'
 GITHUB_CLIENT_ID = 'b8b55a398f9ccbfb603d'
-GITHUB_CLIENT_SECRET = 'fa57ad5bbeb1202997f6c5cd5574b2d7f1c4be1a'
+GITHUB_CLIENT_SECRET = config.CLIENT_SECRET
 
 app = Flask(__name__, static_folder="../static/dist", template_folder="../static")
 app.config.from_object(__name__)

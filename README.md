@@ -29,3 +29,10 @@ method to create the tables and database:
   ```
   python server.py
   ```
+#### Notes:
+This application relies on GitHub OAuth. A custom client id and secret must be set up here:
+https://github.com/settings/applications/new
+Then add a file caleld "config.py" in the server directory, next to server.py, with the contents:
+```
+CLIENT_SECRET=<mysecretkey>
+```

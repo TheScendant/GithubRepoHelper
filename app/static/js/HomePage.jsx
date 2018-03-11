@@ -43,16 +43,18 @@ export default class HomePage extends React.Component {
      */
     getRepoDetails() {
         let repo = this.props.repos[this.state.activeRepo];
+        //sort languages by value
         let lans = Object.keys(repo["languages"]).sort(
                     (a,b) => repo["languages"][a] < repo["languages"][b]
                 );
 
-        let languages = "";
+        let languages = [];
         lans.forEach((item,index) => {
-            languages += item;
-            if (index !== lans.length-1) {
-                languages +=", ";
-            }
+            languages.push(
+                <span className="tableData" key={index}>
+                    {item}
+                </span>
+            );
         });
 
         let contributors = [];
@@ -63,7 +65,7 @@ export default class HomePage extends React.Component {
                     <a href={item.html_url}>{item.login}</a>
                 </span>
             );
-        })
+        });
 
         let tagList = [];
         repo["tags"].forEach((item,index) => {
@@ -72,6 +74,15 @@ export default class HomePage extends React.Component {
                     {item.name}
                 </span>
                 );
+        });
+
+        let topics = [];
+        repo["topics"]["names"].forEach((item,index) => {
+            topics.push(
+                <span className="tableData" key={index}>
+                {item}
+                </span>
+            );
         });
 
         return (
@@ -98,6 +109,10 @@ export default class HomePage extends React.Component {
                         <tr>
                             <td>Tags</td>
                             <td>{tagList}</td>
+                        </tr>
+                        <tr>
+                            <td>Topics</td>
+                            <td>{topics}</td>
                         </tr>
                     </tbody></table>
                 </div>

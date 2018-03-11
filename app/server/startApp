@@ -1,0 +1,1 @@
+exec gunicorn --workers 3 --bind unix:server.sock -m 007 wsgi:app

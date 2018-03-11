@@ -92,8 +92,13 @@ h2, h1 {
     font-weight:750;
 }
 
-a {
-
+.tableData {
+    padding: 2px;
+    margin: 2px;
+}
+.avatar {
+    height:16px;
+    width: 16px;
 }
 .mainPage {
     background-color: var(--steel);

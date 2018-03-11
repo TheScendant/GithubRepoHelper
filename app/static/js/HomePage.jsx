@@ -31,6 +31,7 @@ export default class HomePage extends React.Component {
         let lans = Object.keys(repo["languages"]).sort(
                     (a,b) => repo["languages"][a] < repo["languages"][b]
                 );
+
         let languages = "";
         lans.forEach((item,index) => {
             languages += item;
@@ -39,33 +40,33 @@ export default class HomePage extends React.Component {
             }
         });
 
-        let contributors = "";
-        let cons = repo["contributors"].map( (x) => x.login);
-        cons.forEach((item,index) => {
-            contributors+=item;
-            if (index !==cons.length-1) {
-                contributors+=", ";
-            }
+        let contributors = [];
+        repo["contributors"].forEach((item,index) => {
+            contributors.push(
+                <span className="tableData" key={index}>
+                    <img className="avatar" src={item.avatar_url}/>
+                    <a href={item.html_url}>{item.login}</a>
+                </span>
+            );
         })
 
-        let tagList = "";
-        let tags = repo["tags"];
-        tags.forEach((item,index) => {
-            tagList += item.name;
-            if (index !== tags.length-1) {
-                tagList += ", ";
-            }
+        let tagList = [];
+        repo["tags"].forEach((item,index) => {
+            tagList.push (
+                <span className="tableData" key={index}>
+                    {item.name}
+                </span>
+                );
         });
 
         return (
             <div className="repoPage">
                 <h2>{repo["name"]}</h2>
-                <a href={repo["clone_url"]}>View Repo</a>
                 <div className="repoContents">
                     <table className="repoDataTable"><tbody>
                         <tr>
                             <td>Full Name</td>
-                            <td>{repo["full_name"]}</td>
+                            <td><a href={repo["clone_url"]}>{repo["full_name"]}</a></td>
                         </tr>
                         <tr>
                             <td>Last Updated</td>

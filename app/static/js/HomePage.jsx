@@ -35,7 +35,8 @@ export default class HomePage extends React.Component {
         });
         return (
             <div className="repoPage">
-                <h2><a href={activeRepo["clone_url"]}>{activeRepo["name"]}</a></h2>
+                <h2>{activeRepo["name"]}</h2>
+                <a href={activeRepo["clone_url"]}>View Repo</a>
                 <div className="repoContents">
                     <table className="repoDataTable"><tbody>
                         <tr>

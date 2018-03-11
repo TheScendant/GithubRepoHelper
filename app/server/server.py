@@ -43,6 +43,16 @@ def after_request(response):
 def index():
     return render_template("index.html")
 
+@app.route('/status')
+def status():
+    if g.user:
+        result = {}
+        result["repos"] = repos()
+        result["user"] = user()
+        result["logged_in"] = "true"
+        return json.dumps(result)
+    else:
+        return "false"
 
 @github.access_token_getter
 def token_getter():

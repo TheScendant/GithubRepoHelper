@@ -16,14 +16,12 @@ github = GitHub(app)
 db = SQLAlchemy(app)
 
 class User(db.Model):
-
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(200))
     github_access_token = db.Column(db.String(200))
 
     def __init__(self, github_access_token):
         self.github_access_token = github_access_token
-
 
 @app.before_request
 def before_request():
@@ -36,11 +34,17 @@ def before_request():
 def after_request(response):
     return response
 
-
+"""
+Renders index page.
+"""
 @app.route('/')
 def index():
     return render_template("index.html")
 
+"""
+Returns json if data if logged in.
+Otherwise returns 'false'
+"""
 @app.route('/status')
 def status():
     if g.user:
@@ -58,7 +62,10 @@ def token_getter():
     if user is not None:
         return user.github_access_token
 
-
+"""
+Callback for github OAuth.
+Renders success template or redirects to index
+"""
 @app.route('/login/oauth/callback')
 @github.authorized_handler
 def authorized(access_token):
@@ -75,7 +82,10 @@ def authorized(access_token):
     session['user_id'] = user.id
     return render_template("success.html")
 
-
+"""
+Handles user login.
+If OAuth alreaday authorized, sends to main page
+"""
 @app.route('/login')
 def login():
     if session.get('user_id', None) is None:
@@ -83,17 +93,29 @@ def login():
     else:
         return render_template("success.html")
 
-
+"""
+Handles logging a user out.
+@return 'loggedout' to tell front end the user session ended
+"""
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
     return "loggedout"
 
+"""
+Gets the user data.
+@return user JSON as a string
+"""
 @app.route('/user')
 def user():
     user = github.get('user')
     return json.dumps(user)
 
+"""
+Gets the repos for the user. Makes additional requests for the languages,
+contributors, tags and topics.
+@return repo JSON as a string
+"""
 @app.route('/repos')
 def repos():
     repos = github.get('user/repos')
@@ -106,6 +128,5 @@ def repos():
         repo["topics"] = github.get("/repos/"+repo["owner"]["login"]+"/"+repo["name"]+"/topics",headers=headers)
     return json.dumps(repos)
 
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

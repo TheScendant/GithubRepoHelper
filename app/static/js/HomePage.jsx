@@ -50,6 +50,12 @@ export default class HomePage extends React.Component {
 
         let tagList = "";
         let tags = repo["tags"];
+        tags.forEach((item,index) => {
+            tagList += item.name;
+            if (index !== tags.length-1) {
+                tagList += ", ";
+            }
+        });
 
         return (
             <div className="repoPage">
@@ -75,7 +81,7 @@ export default class HomePage extends React.Component {
                         </tr>
                         <tr>
                             <td>Tags</td>
-                            <td>{tags}</td>
+                            <td>{tagList}</td>
                         </tr>
                     </tbody></table>
                 </div>

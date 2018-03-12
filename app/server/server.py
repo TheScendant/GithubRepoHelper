@@ -128,5 +128,7 @@ def repos():
         repo["topics"] = github.get("/repos/"+repo["owner"]["login"]+"/"+repo["name"]+"/topics",headers=headers)
     return json.dumps(repos)
 
+def init_db():
+    db.create_all()
 if __name__ == '__main__':
     app.run(host="0.0.0.0")

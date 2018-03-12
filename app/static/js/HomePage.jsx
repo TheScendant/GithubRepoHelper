@@ -138,11 +138,18 @@ export default class HomePage extends React.Component {
                 </div>
                     <div className="pageContents">
                         <div className="sideBar">
+                            <div className="userData">
+                                <span><h2>My Account</h2></span>
+                                <span className="picUsername">
+                                    <img className="avatar" src={this.props.user.avatar_url}/>
+                                    <span className="username" onClick={() => window.location = this.props.user.html_url } >{this.props.user.login}</span>
+                                </span>
+                                <span className="logOut" onClick={() => this.props.logoutClick()} >Logout</span>
+                            </div>
                             <div className="repoList">
                                 <span><h2>Repositories</h2></span>
                                 {repos}
                             </div>
-                            <span className="logOut" onClick={() => this.props.logoutClick()} >Logout</span>
                         </div>
                         <div className="mainPage">
                             {activeRepo}

@@ -53,6 +53,10 @@ def status():
         result["repos"] = repos()
         result["user"] = user()
         result["logged_in"] = "true"
+        if result["user"] == None or result["repos"] == None:
+            #token expired
+            session.pop('user_id', None)
+            return "false"
         return json.dumps(result)
     else:
         return "false"
@@ -108,8 +112,11 @@ Gets the user data.
 """
 @app.route('/user')
 def user():
-    user = github.get('user')
-    return json.dumps(user)
+    try:
+        user = github.get('user')
+        return json.dumps(user)
+    except:
+        return None
 
 """
 Gets the repos for the user. Makes additional requests for the languages,
@@ -118,17 +125,22 @@ contributors, tags and topics.
 """
 @app.route('/repos')
 def repos():
-    repos = github.get('user/repos')
-    for repo in repos:
-        repo["languages"] = github.get(repo["languages_url"])
-        repo["contributors"] = github.get(repo["contributors_url"])
-        repo["tags"] = github.get(repo["tags_url"])
-        #topics is in beta so need custom 'Accept' header
-        headers = {"Accept": "application/vnd.github.mercy-preview+json"}
-        repo["topics"] = github.get("/repos/"+repo["owner"]["login"]+"/"+repo["name"]+"/topics",headers=headers)
-    return json.dumps(repos)
+    try:
+        repos = github.get('user/repos')
+        for repo in repos:
+            repo["languages"] = github.get(repo["languages_url"])
+            repo["contributors"] = github.get(repo["contributors_url"])
+            repo["tags"] = github.get(repo["tags_url"])
+            #topics is in beta so need custom 'Accept' header
+            headers = {"Accept": "application/vnd.github.mercy-preview+json"}
+            repo["topics"] = github.get("/repos/"+repo["owner"]["login"]+"/"+repo["name"]+"/topics",headers=headers)
+        return json.dumps(repos)
+    except:
+        return None
+
 
 def init_db():
     db.create_all()
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0")
